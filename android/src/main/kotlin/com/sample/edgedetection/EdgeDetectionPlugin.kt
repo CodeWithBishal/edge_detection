@@ -45,6 +45,7 @@ class EdgeDetectionHandler : MethodCallHandler, PluginRegistry.ActivityResultLis
         const val INITIAL_BUNDLE = "initial_bundle"
         const val FROM_GALLERY = "from_gallery"
         const val SAVE_TO = "save_to"
+        const val URI_FILE = "uri_file"
         const val CAN_USE_GALLERY = "can_use_gallery"
         const val SCAN_TITLE = "scan_title"
         const val CROP_TITLE = "crop_title"
@@ -111,6 +112,7 @@ class EdgeDetectionHandler : MethodCallHandler, PluginRegistry.ActivityResultLis
 
         val bundle = Bundle()
         bundle.putString(SAVE_TO, call.argument<String>(SAVE_TO) as String)
+        bundle.putString(URI_FILE, call.argument<String>(URI_FILE) as String)
         bundle.putString(SCAN_TITLE, call.argument<String>(SCAN_TITLE) as String)
         bundle.putString(CROP_TITLE, call.argument<String>(CROP_TITLE) as String)
         bundle.putString(CROP_BLACK_WHITE_TITLE, call.argument<String>(CROP_BLACK_WHITE_TITLE) as String)
@@ -131,6 +133,7 @@ class EdgeDetectionHandler : MethodCallHandler, PluginRegistry.ActivityResultLis
 
         val bundle = Bundle()
         bundle.putString(SAVE_TO, call.argument<String>(SAVE_TO) as String)
+        bundle.putString(URI_FILE, call.argument<String>(URI_FILE) as String)
         bundle.putString(CROP_TITLE, call.argument<String>(CROP_TITLE) as String)
         bundle.putString(CROP_BLACK_WHITE_TITLE, call.argument<String>(CROP_BLACK_WHITE_TITLE) as String )
         bundle.putString(CROP_RESET_TITLE, call.argument<String>(CROP_RESET_TITLE) as String)

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,8 +37,9 @@ class _MyAppState extends State<MyApp> {
     }
 
     // Generate filepath for saving
-    String imagePath = join((await getApplicationSupportDirectory()).path,
+    String imagePath = join((await getApplicationDocumentsDirectory()).path,
         "${(DateTime.now().millisecondsSinceEpoch / 1000).round()}.jpeg");
+    print(imagePath);
 
     bool success = false;
 
@@ -70,14 +72,19 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> getImageFromGallery() async {
     // Generate filepath for saving
-    String imagePath = join((await getApplicationSupportDirectory()).path,
-        "${(DateTime.now().millisecondsSinceEpoch / 1000).round()}.jpeg");
-
+    final ImagePicker picker = ImagePicker();
+// Pick an image.
+    final XFile? imagePath =
+        await picker.pickImage(source: ImageSource.gallery);
+    if (imagePath?.path == null) return;
+    // String imagePath = join((await getApplicationDocumentsDirectory()).path,
+    //     "${(DateTime.now().millisecondsSinceEpoch / 1000).round()}.jpeg");
     bool success = false;
     try {
       //Make sure to await the call to detectEdgeFromGallery.
       success = await EdgeDetection.detectEdgeFromGallery(
-        imagePath,
+        "file:///data/user/0/com.sample.edgedetectionexample/cache/142f42fa-3932-4cf4-81c8-19cf6792b6b9/1000000030.jpg",
+        imagePath!.path,
         androidCropTitle: 'Crop', // use custom localizations for android
         androidCropBlackWhiteTitle: 'Black White',
         androidCropReset: 'Reset',
@@ -94,7 +101,7 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       if (success) {
-        _imagePath = imagePath;
+        _imagePath = imagePath!.path;
       }
     });
   }

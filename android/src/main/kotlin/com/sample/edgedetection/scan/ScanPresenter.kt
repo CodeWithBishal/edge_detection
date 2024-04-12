@@ -157,8 +157,6 @@ class ScanPresenter constructor(
             mCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK)
         } catch (e: RuntimeException) {
             e.stackTrace
-            Toast.makeText(context, "cannot open camera, please grant camera", Toast.LENGTH_SHORT)
-                .show()
             return
         }
 

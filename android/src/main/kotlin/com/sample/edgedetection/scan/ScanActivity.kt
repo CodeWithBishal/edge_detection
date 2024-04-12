@@ -85,8 +85,13 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
 
     private fun pickupFromGallery() {
         mPresenter.stop()
-        val gallery = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply{type="image/*"}
-        ActivityCompat.startActivityForResult(this, gallery, 1, null)
+        val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
+        val imagePath = initialBundle.getString(EdgeDetectionHandler.URI_FILE, "") as String
+        val uriPath = Uri.parse(imagePath)
+        onImageSelected(uriPath)
+        // val gallery = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply{type="image/*"}
+        // Log.i("urrrrr", gallery.toString())
+        // ActivityCompat.startActivityForResult(this, uriPath, 1, null)
     }
 
     override fun onStart() {
@@ -147,7 +152,7 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
             onBackPressed()
-            true
+            false
         }
         else -> super.onOptionsItemSelected(item)
     }

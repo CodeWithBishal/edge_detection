@@ -40,7 +40,7 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
         val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
         mPresenter = CropPresenter(this, initialBundle)
         findViewById<ImageView>(R.id.crop).setOnClickListener {
-            Log.e(TAG, "Crop touched!")
+            Log.e(TAG, "Crop touched!!")
             mPresenter.crop()
             changeMenuVisibility(true)
         }
@@ -86,7 +86,7 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
         when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                return false
             }
             R.id.action_label -> {
                 Log.e(TAG, "Saved touched!")

@@ -26,12 +26,14 @@ class EdgeDetection {
 
   /// Call this method to scan the object edge from a gallery image.
   static Future<bool> detectEdgeFromGallery(
+    String file,
     String saveTo, {
     String androidCropTitle = "Crop",
     String androidCropBlackWhiteTitle = "Black White",
     String androidCropReset = "Reset",
   }) async {
     return await _channel.invokeMethod('edge_detect_gallery', {
+      'uri_file': file,
       'save_to': saveTo,
       'crop_title': androidCropTitle,
       'crop_black_white_title': androidCropBlackWhiteTitle,
