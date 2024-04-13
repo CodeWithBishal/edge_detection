@@ -15,6 +15,8 @@ import com.sample.edgedetection.view.PaperRectangle
 class CropActivity : BaseActivity(), ICropView.Proxy {
 
     private var showMenuItems = false
+    // Variable to store the reference to the action_label menu item
+    private var actionLabelMenuItem: MenuItem? = null
 
     private lateinit var mPresenter: CropPresenter
 
@@ -35,23 +37,6 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
 
     override fun provideContentViewId(): Int = R.layout.activity_crop
 
-
-    override fun initPresenter() {
-        val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
-        mPresenter = CropPresenter(this, initialBundle)
-        findViewById<ImageView>(R.id.crop).setOnClickListener {
-            Log.e(TAG, "Crop touched!!")
-            mPresenter.crop()
-            changeMenuVisibility(true)
-        }
-    }
-
-    override fun getPaper(): ImageView = findViewById(R.id.paper)
-
-    override fun getPaperRect() = findViewById<PaperRectangle>(R.id.paper_rect)
-
-    override fun getCroppedPaper() = findViewById<ImageView>(R.id.picture_cropped)
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.crop_activity_menu, menu)
 
@@ -63,6 +48,8 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
             initialBundle.getString(EdgeDetectionHandler.CROP_BLACK_WHITE_TITLE) as String
         menu.findItem(R.id.reset).title =
             initialBundle.getString(EdgeDetectionHandler.CROP_RESET_TITLE) as String
+
+        actionLabelMenuItem = menu.findItem(R.id.action_label)
 
         if (showMenuItems) {
             menu.findItem(R.id.action_label).isVisible = true
@@ -76,6 +63,32 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
     }
 
 
+    override fun initPresenter() {
+        val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
+        mPresenter = CropPresenter(this, initialBundle)
+        findViewById<ImageView>(R.id.crop).setOnClickListener {
+            Log.e(TAG, "Crop touched!!")
+            mPresenter.crop()
+            actionLabelMenuItem?.isVisible = true
+            // findViewById<ImageView>(R.id.crop).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.crop).visibility = View.GONE
+            // changeMenuVisibility(true)
+        }
+        // mPresenter.save()
+        // setResult(Activity.RESULT_OK)
+        // System.gc()
+        // finish()
+        // return true
+    }
+
+    override fun getPaper(): ImageView = findViewById(R.id.paper)
+
+    override fun getPaperRect() = findViewById<PaperRectangle>(R.id.paper_rect)
+
+    override fun getCroppedPaper() = findViewById<ImageView>(R.id.picture_cropped)
+
+
+
     private fun changeMenuVisibility(showMenuItems: Boolean) {
         this.showMenuItems = showMenuItems
         invalidateOptionsMenu()
@@ -86,7 +99,7 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
         when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return false
+                return true
             }
             R.id.action_label -> {
                 Log.e(TAG, "Saved touched!")

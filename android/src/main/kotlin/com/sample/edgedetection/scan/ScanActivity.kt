@@ -30,7 +30,7 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
 
     private lateinit var mPresenter: ScanPresenter
 
-    override fun provideContentViewId(): Int = R.layout.activity_scan
+    override fun provideContentViewId(): Int = R.layout.activity_main
 
     override fun initPresenter() {
         val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
@@ -46,21 +46,21 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
             Log.i("OpenCV", "OpenCV loaded Successfully!");
         }
 
-        findViewById<View>(R.id.shut).setOnClickListener {
-            if (mPresenter.canShut) {
-                mPresenter.shut()
-            }
-        }
+        // findViewById<View>(R.id.shut).setOnClickListener {
+        //     if (mPresenter.canShut) {
+        //         mPresenter.shut()
+        //     }
+        // }
 
         // to hide the flashLight button from  SDK versions which we do not handle the permission for!
-        findViewById<View>(R.id.flash).visibility = if
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU && baseContext.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH))
-            View.VISIBLE else
-                View.GONE
+        // findViewById<View>(R.id.flash).visibility = if
+        //         (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU && baseContext.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH))
+        //     View.VISIBLE else
+        //         View.GONE
 
-        findViewById<View>(R.id.flash).setOnClickListener {
-            mPresenter.toggleFlash()
-        }
+        // findViewById<View>(R.id.flash).setOnClickListener {
+        //     mPresenter.toggleFlash()
+        // }
 
         val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
 
@@ -68,14 +68,14 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
             this.title = initialBundle.getString(EdgeDetectionHandler.SCAN_TITLE, "") as String
         }
 
-        findViewById<View>(R.id.gallery).visibility =
-                if (initialBundle.getBoolean(EdgeDetectionHandler.CAN_USE_GALLERY, true))
-                    View.VISIBLE
-                else View.GONE
+        // findViewById<View>(R.id.gallery).visibility =
+        //         if (initialBundle.getBoolean(EdgeDetectionHandler.CAN_USE_GALLERY, true))
+        //             View.VISIBLE
+        //         else View.GONE
 
-        findViewById<View>(R.id.gallery).setOnClickListener {
-            pickupFromGallery()
-        }
+        // findViewById<View>(R.id.gallery).setOnClickListener {
+        //     pickupFromGallery()
+        // }
 
         if (initialBundle.containsKey(EdgeDetectionHandler.FROM_GALLERY) && initialBundle.getBoolean(EdgeDetectionHandler.FROM_GALLERY,false))
         {
@@ -89,8 +89,8 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
         val imagePath = initialBundle.getString(EdgeDetectionHandler.URI_FILE, "") as String
         val uriPath = Uri.parse(imagePath)
         onImageSelected(uriPath)
+        // Log.i("urrrrr", initialBundle.toString())
         // val gallery = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply{type="image/*"}
-        // Log.i("urrrrr", gallery.toString())
         // ActivityCompat.startActivityForResult(this, uriPath, 1, null)
     }
 
@@ -115,8 +115,8 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
             this.windowManager.defaultDisplay
         }
     }
-
-    override fun getSurfaceView() = findViewById<SurfaceView>(R.id.surface)
+    
+    // override fun getSurfaceView() = findViewById<SurfaceView>(R.id.surface)
 
     override fun getPaperRect() = findViewById<PaperRectangle>(R.id.paper_rect)
 
