@@ -163,7 +163,7 @@ class CropPresenter(
                 val cropPic = croppedBitmap
                 if (null != cropPic) {
                     val outStream = FileOutputStream(file)
-                    // cropPic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+                    cropPic.compress(Bitmap.CompressFormat.JPEG, 99, outStream)
                     outStream.flush()
                     outStream.close()
                     Log.i(TAG, "CroppedBitmap Saved")
