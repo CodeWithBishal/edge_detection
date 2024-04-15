@@ -145,7 +145,7 @@ class CropPresenter(
         val rotatePic = rotateBitmap
         if (null != rotatePic) {
             val outStream = FileOutputStream(file)
-            // rotatePic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+            rotatePic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
             outStream.flush()
             outStream.close()
             Log.i(TAG, "RotateBitmap Saved")
@@ -155,7 +155,7 @@ class CropPresenter(
             val pic = enhancedPicture
             if (null != pic) {
                 val outStream = FileOutputStream(file)
-                // pic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+                pic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
                 outStream.flush()
                 outStream.close()
                 Log.i(TAG, "EnhancedPicture Saved")
