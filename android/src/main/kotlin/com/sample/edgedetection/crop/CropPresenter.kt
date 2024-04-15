@@ -141,39 +141,36 @@ class CropPresenter(
 
     fun save() {
         val file = File(initialBundle.getString(EdgeDetectionHandler.SAVE_TO) as String)
-
+    
         val rotatePic = rotateBitmap
         if (null != rotatePic) {
             val outStream = FileOutputStream(file)
-            rotatePic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+            // rotatePic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
             outStream.flush()
             outStream.close()
-            // rotatePic.recycle()
             Log.i(TAG, "RotateBitmap Saved")
         } else {
-            // first save enhanced picture, if picture is not enhanced, save cropped picture, otherwise nothing to do
+            // First save the enhanced picture. If the picture is not enhanced, save the cropped picture.
+            // Otherwise, there's nothing to do.
             val pic = enhancedPicture
-
             if (null != pic) {
                 val outStream = FileOutputStream(file)
-                pic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+                // pic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
                 outStream.flush()
                 outStream.close()
-                // pic.recycle()
                 Log.i(TAG, "EnhancedPicture Saved")
             } else {
                 val cropPic = croppedBitmap
                 if (null != cropPic) {
                     val outStream = FileOutputStream(file)
-                    cropPic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+                    // cropPic.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
                     outStream.flush()
                     outStream.close()
-                    // cropPic.recycle()
                     Log.i(TAG, "CroppedBitmap Saved")
                 }
             }
         }
-    }
+    }    
 
     // Extension function to rotate a bitmap
     private fun Bitmap.rotateInt(degree: Int): Bitmap {
