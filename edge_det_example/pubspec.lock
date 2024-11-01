@@ -52,12 +52,10 @@ packages:
   edge_detection:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e92513e6463832c32163dc04453812995ab20c43
-      url: "https://github.com/pragadeeshNIS/edge_detection"
-    source: git
-    version: "1.1.2"
+      path: ".."
+      relative: true
+    source: path
+    version: "1.1.5"
   fake_async:
     dependency: transitive
     description:

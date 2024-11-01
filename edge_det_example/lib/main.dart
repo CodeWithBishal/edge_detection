@@ -78,6 +78,7 @@ class _MyAppState extends State<MyApp> {
       //Make sure to await the call to detectEdgeFromGallery.
       success = await EdgeDetection.detectEdgeFromGallery(
         imagePath,
+        "",
         androidCropTitle: 'Crop', // use custom localizations for android
         androidCropBlackWhiteTitle: 'Black White',
         androidCropReset: 'Reset',
